@@ -15,6 +15,9 @@ const payload = {
   env: {
     DATA_DIR: path.join(__dirname, FRONTEND_CONSTANTS.DEFAULT_DATA_DIR),
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 if (!isProd && process.env.ANALYZE) {
