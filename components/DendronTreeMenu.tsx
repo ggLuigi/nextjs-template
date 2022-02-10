@@ -33,6 +33,8 @@ export default function DendronTreeMenu(
 
     logger.info({
       state: "useEffect:preCalculateTree",
+      noteActiveId,
+      notes: props.notes,
     });
 
     // all parents should be in expanded position
