@@ -46,8 +46,17 @@ export default function DendronTreeMenu(
       noteId: string;
     }) => {
       let pNote: NoteProps = notes[noteId];
-      logger.info({ state: "getAllParents:enter", noteId, notes });
+      logger.info({ state: "getAllParents:enter", noteId, notes, pNote });
       const activeNoteIds: string[] = [];
+      if (!pNote) {
+        logger.info({
+          state: "getAllParents:pNote note found",
+          noteId,
+          notes,
+          pNote,
+        });
+        return [];
+      }
       do {
         activeNoteIds.unshift(pNote.id);
         logger.info({ state: "getAllParents:do:1", pNote });
