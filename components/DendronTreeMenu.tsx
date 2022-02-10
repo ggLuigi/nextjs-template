@@ -1,4 +1,5 @@
 import { DownOutlined, RightOutlined, UpOutlined } from "@ant-design/icons";
+import { NoteProps, NotePropsDict } from "@dendronhq/common-all";
 import { createLogger, TreeViewUtils } from "@dendronhq/common-frontend";
 import { Menu, Typography } from "antd";
 import _ from "lodash";
@@ -37,8 +38,33 @@ export default function DendronTreeMenu(
       notes: props.notes,
     });
 
+    const getAllParents = ({
+      notes,
+      noteId,
+    }: {
+      notes: NotePropsDict;
+      noteId: string;
+    }) => {
+      let pNote: NoteProps = notes[noteId];
+      logger.info({ state: "getAllParents:enter", noteId, notes });
+      const activeNoteIds: string[] = [];
+      do {
+        activeNoteIds.unshift(pNote.id);
+        logger.info({ state: "getAllParents:do:1", pNote });
+        pNote = notes[pNote.parent as string];
+        logger.info({ state: "getAllParents:do:2", pNote });
+      } while (pNote);
+      logger.info({
+        state: "getAllParents:exit",
+        activeNoteIds,
+        noteId,
+        notes,
+      });
+      return activeNoteIds;
+    };
+
     // all parents should be in expanded position
-    const activeNoteIds = TreeViewUtils.getAllParents({
+    const activeNoteIds = getAllParents({
       notes: props.notes,
       noteId: noteActiveId,
     });
