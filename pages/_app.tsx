@@ -63,11 +63,11 @@ function DendronApp({ Component, pageProps }: AppProps) {
   }, []);
 
   logger.info({ ctx: "render" });
-
+  const faviconPath = getAssetUrl(`/favicon.ico`);
   return (
     <DendronLayout {...noteData} dendronRouter={dendronRouter}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={faviconPath} />
       </Head>
       <Component
         {...pageProps}
